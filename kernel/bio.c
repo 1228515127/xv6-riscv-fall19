@@ -163,8 +163,10 @@ void brelse(struct buf *b)
   if (b->refcnt == 0)
   {
     // no one is waiting for it.
+    //b离开原来的bucket
     b->next->prev = b->prev;
     b->prev->next = b->next;
+    //b加入blockno对应的bucket
     b->next = bcache.head[h].next;
     b->prev = &bcache.head[h];
     bcache.head[h].next->prev = b;
