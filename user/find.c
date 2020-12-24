@@ -56,10 +56,13 @@ void find(char *path, char *findName) {
 			//printf("de.name:%s, de.inum:%d\n", de.name, de.inum);
 			//由注释的printf
 			//应该跳过下面这些
+			//inum==0表示空 inum1==1表示 . 或 .. 即当前目录和上级目录  
 			if (de.inum == 0 || de.inum == 1 || strcmp(de.name, ".") == 0 || strcmp(de.name, "..") == 0)
 				continue;
 			memmove(p, de.name, strlen(de.name));
 			p[strlen(de.name)] = 0;
+			//递归寻找
+			//直到执行上述第42行代码CASE T_FILE:
 			find(buf, findName);
 		}
 		break;
